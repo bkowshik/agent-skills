@@ -1,0 +1,29 @@
+# git-skills Development Guidelines
+
+Auto-generated from all feature plans. Last updated: 2026-03-09
+
+## Active Technologies
+
+- Markdown (SKILL.md) + Bash (helper script for git operations) + Git 2.20+ (001-squash-commits)
+
+## Project Structure
+
+```text
+src/
+tests/
+```
+
+## Commands
+
+# Add commands for Markdown (SKILL.md) + Bash (helper script for git operations)
+
+## Code Style
+
+Markdown (SKILL.md) + Bash (helper script for git operations): Follow standard conventions
+
+## Recent Changes
+
+- 001-squash-commits: Added Markdown (SKILL.md) + Bash (helper script for git operations) + Git 2.20+
+
+<!-- MANUAL ADDITIONS START -->
+<!-- MANUAL ADDITIONS END -->

@@ -1,50 +1,29 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+# git-skills Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Spec Compliance
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+The [Agent Skills Specification](https://agentskills.io/specification.md) is the authoritative format standard. Compliance is what makes skills portable across the ecosystem — without it, a skill that works in one tool breaks in another.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### II. Self-Contained
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+Each skill is independently installable. If a skill references anything outside its own directory, distribution breaks. Each skill has a single responsibility; compose multi-step workflows from separate skills.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### III. Agent-Agnostic
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+Skills are consumed by many AI coding tools, so instructions need to work for any LLM. Describe *what* to do and *why*, rather than naming specific tools or APIs. Explain reasoning behind constraints so the agent can handle edge cases the rules don't explicitly cover.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+### IV. Eval-First
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
-
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+Skills are markdown — correctness is validated through expected behavior, not unit tests. Define scenarios covering the happy path and common errors, and validate across multiple AI coding tools to confirm consistent behavior.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This constitution is the authoritative source of project principles. Evaluate all design decisions, code reviews, and PRs against these principles.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+- **Amendments**: Document changes with a version bump, rationale, and updated date.
+- **Versioning**: Major for principle removals or redefinitions, minor for new principles or expanded guidance, patch for clarifications and wording fixes.
+- **Compliance**: Include a constitution compliance check in each PR review. Justify any violations in the PR description.
+
+**Version**: 6.0.0 | **Ratified**: 2026-03-09 | **Last Amended**: 2026-03-09
