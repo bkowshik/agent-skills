@@ -1,0 +1,17 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Agent installations (managed by npx skills)
+.agents/
+skills-lock.json
+
+# Claude Code local settings
+.claude/
