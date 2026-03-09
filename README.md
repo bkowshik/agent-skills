@@ -2,6 +2,12 @@
 
 Git workflow skills for AI coding tools. Built on the [Agent Skills Specification](https://agentskills.io/specification.md) (v1.0).
 
+## Installation
+
+```sh
+npx skills add bkowshik/git-skills
+```
+
 ## Skills
 
 | Skill | Description |
