@@ -16,7 +16,7 @@ merging so reviewers see one clear commit instead of dozens of WIP saves.
 
 ## How it works
 
-The helper script at `scripts/squash.sh` handles git operations (pre-flight
+The helper script at `{{SKILL_DIR}}/scripts/squash.sh` handles git operations (pre-flight
 checks, base branch detection, backup, soft-reset). You handle the commit
 message synthesis and user interaction.
 
@@ -28,7 +28,7 @@ Run the helper script in dry-run mode to collect commit data without modifying
 anything:
 
 ```bash
-scripts/squash.sh --dry-run
+{{SKILL_DIR}}/scripts/squash.sh --dry-run
 ```
 
 The output contains:
@@ -88,7 +88,7 @@ collaborators who have pulled the branch will see diverged history.
 Run the helper script in execute mode (without `--dry-run`):
 
 ```bash
-scripts/squash.sh
+{{SKILL_DIR}}/scripts/squash.sh
 ```
 
 This creates a backup ref and runs `git reset --soft` to the merge-base. All
@@ -115,13 +115,13 @@ If the script cannot auto-detect the base branch (none of `main`, `master`,
 the user which branch to use, then re-run with:
 
 ```bash
-scripts/squash.sh --dry-run --base-branch <name>
+{{SKILL_DIR}}/scripts/squash.sh --dry-run --base-branch <name>
 ```
 
 And for execution:
 
 ```bash
-scripts/squash.sh --base-branch <name>
+{{SKILL_DIR}}/scripts/squash.sh --base-branch <name>
 ```
 
 Always confirm the detected base branch in the preview so the user can correct
@@ -132,7 +132,7 @@ it before proceeding.
 If a user is on `feature/login` branched off `develop`:
 
 ```bash
-scripts/squash.sh --dry-run --base-branch develop
+{{SKILL_DIR}}/scripts/squash.sh --dry-run --base-branch develop
 ```
 
 The script finds the merge-base between `develop` and HEAD, lists only the
@@ -170,7 +170,7 @@ Co-authored-by: Alice <alice@example.com>
 
 Running the skill:
 
-1. `scripts/squash.sh --dry-run` shows 4 commits, base branch `main`,
+1. `{{SKILL_DIR}}/scripts/squash.sh --dry-run` shows 4 commits, base branch `main`,
    no merge commits, not pushed.
 
 2. You synthesize: "Add search endpoint with query parsing, validation,
@@ -195,7 +195,7 @@ Running the skill:
 
 4. User confirms.
 
-5. `scripts/squash.sh` creates backup at `refs/backup/squash-commits/feature/add-search`
+5. `{{SKILL_DIR}}/scripts/squash.sh` creates backup at `refs/backup/squash-commits/feature/add-search`
    and soft-resets to merge-base.
 
 6. `git commit -m "Add search endpoint with query parsing, validation, and paginated results\n\nCo-authored-by: Alice <alice@example.com>"` creates the single commit.
