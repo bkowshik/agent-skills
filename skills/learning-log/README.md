@@ -5,7 +5,7 @@ Create a structured learning log entry from the current conversation. Distills k
 ## Install
 
 ```bash
-npx skills add bkowshik/git-skills
+npx skills add bkowshik/agent-skills
 ```
 
 ## Usage

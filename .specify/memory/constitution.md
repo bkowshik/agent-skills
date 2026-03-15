@@ -1,4 +1,4 @@
-# git-skills Constitution
+# agent-skills Constitution
 
 ## Core Principles
 
