@@ -79,9 +79,9 @@ are made.
 
 If `HAS_UPSTREAM=true`, the branch has been pushed to a remote. After
 squashing, the user will need to force-push (`git push --force-with-lease`)
-because the branch history has been rewritten. Warn the user about this and
-ask for explicit confirmation before proceeding. This matters because
-collaborators who have pulled the branch will see diverged history.
+because the branch history has been rewritten. Mention this in the preview so
+the user is aware before confirming the squash. The actual force-push
+confirmation happens in Step 6 after the squash completes.
 
 ### Step 5: Execute the squash
 
@@ -100,13 +100,36 @@ Then create the commit with the synthesized message:
 git commit -m "<synthesized message with trailers>"
 ```
 
-### Step 6: Confirm success
+### Step 6: Confirm success and handle force-push
 
 After the commit, show the user:
 - The new single commit (run `git log --oneline -1`)
 - The backup ref location (from the script output)
 - The recovery command: `git reset --hard <backup-ref>`
-- If the branch was pushed: remind them to run `git push --force-with-lease`
+
+If `HAS_UPSTREAM=false`, the squash is complete — no further action needed.
+
+If `HAS_UPSTREAM=true`, the branch was pushed before squashing and the remote
+history now diverges. Offer to force-push:
+
+1. Warn that collaborators who have pulled this branch will see diverged
+   history after the force-push.
+2. Ask the user to confirm whether they want to force-push now.
+3. If the user confirms, run:
+
+   ```bash
+   git push --force-with-lease
+   ```
+
+   - If the push succeeds, show the output and confirm the remote branch is
+     updated.
+   - If the push fails, show the full error output. Reassure the user that
+     the local squash commit is intact and the backup ref is still available
+     for recovery. Provide the manual command for retry:
+     `git push --force-with-lease`
+
+4. If the user declines, skip pushing and show the manual command as a
+   reference: `git push --force-with-lease`
 
 ## Specifying a different base branch
 
@@ -149,7 +172,10 @@ commits on `feature/login`, and the rest of the workflow proceeds identically.
 - **Merge commits in history**: The script detects and reports them. Warn the
   user that squashing will flatten merge commits into a single linear commit.
   Ask for confirmation before proceeding.
-- **Already pushed**: Covered in Step 4 above. Warn about force-push.
+- **Already pushed**: Covered in Steps 4 and 6. Step 4 mentions the force-push
+  requirement in the preview. Step 6 asks the user to confirm and executes
+  `git push --force-with-lease` on confirmation. If the push fails, the error
+  is shown with reassurance that the local squash is intact.
 - **Diverged base** (base branch has new commits since the branch was created):
   The soft-reset approach handles this correctly by design. It only affects the
   branch's own commits — the merge-base stays the same regardless of new
@@ -157,7 +183,8 @@ commits on `feature/login`, and the rest of the workflow proceeds identically.
 
 ## Example
 
-A developer has a branch `feature/add-search` with 4 commits off `main`:
+A developer has a branch `feature/add-search` with 4 commits off `main`.
+The branch has been pushed to the remote:
 
 ```
 abc1234 WIP: search endpoint skeleton
@@ -171,7 +198,7 @@ Co-authored-by: Alice <alice@example.com>
 Running the skill:
 
 1. `{{SKILL_DIR}}/scripts/squash.sh --dry-run` shows 4 commits, base branch `main`,
-   no merge commits, not pushed.
+   no merge commits, has upstream.
 
 2. You synthesize: "Add search endpoint with query parsing, validation,
    and paginated results"
@@ -190,15 +217,17 @@ Running the skill:
 
      Co-authored-by: Alice <alice@example.com>
 
-   Force-push needed: No
+   Force-push needed: Yes (branch has been pushed)
    ```
 
-4. User confirms.
+4. User confirms the squash.
 
 5. `{{SKILL_DIR}}/scripts/squash.sh` creates backup at `refs/backup/squash-commits/feature/add-search`
    and soft-resets to merge-base.
 
 6. `git commit -m "Add search endpoint with query parsing, validation, and paginated results\n\nCo-authored-by: Alice <alice@example.com>"` creates the single commit.
 
-7. Result: branch has 1 commit ahead of `main`, identical file state, backup
-   ref available for recovery.
+7. Result shown: 1 commit ahead of `main`, backup ref available for recovery.
+
+8. Since the branch was pushed, ask the user to confirm force-push. User
+   confirms, `git push --force-with-lease` runs, remote branch is updated.
