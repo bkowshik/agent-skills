@@ -5,7 +5,7 @@ Combine all commits on the current branch into a single commit with a coherent, 
 ## Install
 
 ```bash
-npx skills add bkowshik/git-skills
+npx skills add bkowshik/agent-skills
 ```
 
 ## Usage
