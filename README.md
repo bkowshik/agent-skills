@@ -13,6 +13,7 @@ npx skills add bkowshik/git-skills
 | Skill | Description |
 |-------|-------------|
 | [squash-commits](skills/squash-commits/) | Combine all branch commits into a single commit with a synthesized message |
+| [learning-log](skills/learning-log/) | Create a structured learning log entry from the current conversation |
 
 ## License
 
