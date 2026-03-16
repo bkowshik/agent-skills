@@ -54,6 +54,9 @@ Good synthesis means:
 - Remove noise (WIP, fixup, typo fixes, "oops") that doesn't add meaning
 - Use the same voice and style as the project's existing commits
 - Keep it concise — a short summary line, optionally followed by a body
+- Do NOT add your own name, Co-Authored-By trailer, or any other attribution
+  identifying you as an AI tool to the commit message. The commit message
+  should contain only the synthesized summary and human-authored trailers.
 
 If the TRAILERS section contains any trailers, append them at the end of the
 commit message (after a blank line). These carry attribution and compliance
@@ -184,7 +187,8 @@ commits on `feature/login`, and the rest of the workflow proceeds identically.
 ## Example
 
 A developer has a branch `feature/add-search` with 4 commits off `main`.
-The branch has been pushed to the remote:
+The branch has been pushed to the remote. Some commits were made with an AI
+coding tool that added its own Co-Authored-By trailer:
 
 ```
 abc1234 WIP: search endpoint skeleton
@@ -193,7 +197,12 @@ ghi9012 Fix typo in search query parser
 jkl3456 Add pagination to search results
 
 Co-authored-by: Alice <alice@example.com>
+Co-authored-by: Claude <noreply@anthropic.com>
 ```
+
+The helper script automatically filters out known LLM/bot trailers, so only
+the human trailer (`Alice`) appears in the TRAILERS section of the dry-run
+output.
 
 Running the skill:
 

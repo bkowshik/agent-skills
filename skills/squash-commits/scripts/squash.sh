@@ -176,9 +176,11 @@ if git rev-parse --abbrev-ref "@{upstream}" >/dev/null 2>&1; then
   HAS_UPSTREAM=true
 fi
 
-# Extract and deduplicate trailers
+# Extract and deduplicate trailers, filtering out known LLM/bot attributions
 TRAILERS=$(git log --format='%(trailers:key=Co-authored-by,key=Signed-off-by,unfold)' \
-  "$MERGE_BASE..HEAD" 2>/dev/null | sort -u | sed '/^$/d' || true)
+  "$MERGE_BASE..HEAD" 2>/dev/null | sort -u | sed '/^$/d' \
+  | grep -v -i -E 'noreply@anthropic\.com|noreply@openai\.com|noreply@google\.com|noreply@github\.com|users\.noreply\.github\.com' \
+  || true)
 
 # --- Output ---
 
