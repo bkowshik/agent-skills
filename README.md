@@ -18,6 +18,16 @@ Skills are installed into `.agents/skills/`, but Claude Code currently looks for
 mkdir -p .claude && ln -s ../.agents/skills .claude/skills
 ```
 
+### Local development
+
+To test skills from a local checkout (without merging to main), run from the repo root:
+
+```sh
+mkdir -p .claude
+ln -sf ../skills .claude/skills
+```
+
+
 ## Skills
 
 | Skill | Description |
